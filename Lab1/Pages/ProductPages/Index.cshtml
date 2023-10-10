@@ -1,0 +1,80 @@
+﻿@page
+@model Lab1.Pages.ProductPages.IndexModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    <h1>List Product</h1>
+    <label>Category</label>
+    <select id="categoryId" name="categoryId" asp-items="Model.categories">
+        <option value="0">Select a number</option>
+    </select>
+    <hr />
+    <div id="Grid">
+        <table width="100%" cellpadding="5" cellspacing="0" style="border: 1px solid #ccc;font-size: 9pt;font-family:Arial">
+            <tr>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">ProductId</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">ProductName</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">QuantityPerUnit</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">UnitPrice</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Discontinued</th>
+            </tr>
+            @foreach (var product in Model.products)
+            {
+                <tr>
+                    <td style="width:120px;border: 1px solid #ccc">@product.ProductId</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.ProductName</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.QuantityPerUnit</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.UnitPrice</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.Discontinued</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <br />
+    <br />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $("#categoryId").change(function () {
+            var selectedValue = $(this).val();
+            $.ajax({
+                type: "POST",
+                beforeSend: function (xhr) {
+                    // Đặt XSRF-TOKEN trong header
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                url: "/ProductPages/Index?handler=Category",
+                data: { cateId: selectedValue },
+                success: function (data) {
+                    // Xóa nội dung bảng hiện có
+                    $('#Grid table tr').not(':first').remove();
+
+                    // Thêm dữ liệu sản phẩm mới vào bảng
+                    data.forEach(function (product) {
+                        var newRow =
+                            '<tr>' +
+                            '<td style="width:120px;border: 1px solid #ccc">' + product.productId + '</td>' +
+                            '<td style="width:120px;border: 1px solid #ccc">' + product.productName + '</td>' +
+                            '<td style="width:120px;border: 1px solid #ccc">' + product.quantityPerUnit + '</td>' +
+                            '<td style="width:120px;border: 1px solid #ccc">' + product.unitPrice + '</td>' +
+                            '<td style="width:120px;border: 1px solid #ccc">' + product.discontinued + '</td>' +
+                            '</tr>';
+                        $('#Grid table').append(newRow);
+                    });
+                },
+                error: function (error) {
+                    console.error("Error:", error);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
