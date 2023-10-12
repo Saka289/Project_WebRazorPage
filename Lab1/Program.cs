@@ -1,4 +1,6 @@
 using Lab1.Models;
+using Lab1.Repository.CategoryRepository;
+using Lab1.Repository.ProductRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,10 @@ builder.Services.AddDbContext<NorthwindContext>(options => options.UseSqlServer
 (builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

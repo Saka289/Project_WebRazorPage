@@ -1,0 +1,48 @@
+﻿@page
+@model Lab1.Pages.ProductPages.CreateModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pl-3">
+            <h2 class="text-primary pl-3">Create Product</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="Product.ProductName"></label>
+            <input asp-for="Product.ProductName" class="form-control" />
+            <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.CategoryId">Category</label><br /><br />
+            <select asp-for="Product.CategoryId" class="form-select" asp-items="Model.categories">
+                <option value="0">Select a number</option>
+            </select>
+            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.QuantityPerUnit"></label>
+            <input asp-for="Product.QuantityPerUnit" class="form-control" />
+            <span asp-validation-for="Product.QuantityPerUnit" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.UnitPrice"></label>
+            <input asp-for="Product.UnitPrice" class="form-control" />
+            <span asp-validation-for="Product.UnitPrice" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Discontinued"></label><br /><br />
+            <input class="form-check-input" type="radio" asp-for="Product.Discontinued" value="true" /> Enable
+            <input class="form-check-input" type="radio" asp-for="Product.Discontinued" value="false" /> Disable
+            <span asp-validation-for="Product.Discontinued" class="text-danger"></span>
+        </div>
+        <Button type="submit" class="btn btn-primary" style="width:150px">Create</Button>
+        <a asp-page="Index" class="btn btn-primary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

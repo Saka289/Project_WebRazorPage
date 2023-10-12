@@ -12,9 +12,14 @@
     @Html.AntiForgeryToken()
     <h1>List Product</h1>
     <label>Category</label>
-    <select id="categoryId" name="categoryId" asp-items="Model.categories">
+    <select class="form-select" id="categoryId" name="categoryId" asp-items="Model.categories">
         <option value="0">Select a number</option>
     </select>
+    <div class="text-end">
+        <a asp-page="Create" class="btn btn-primary">
+            <i class="bi bi-plus-square"></i> &nbsp;Create New Product
+        </a>
+    </div>
     <hr />
     <div id="Grid">
         <table width="100%" cellpadding="5" cellspacing="0" style="border: 1px solid #ccc;font-size: 9pt;font-family:Arial">
@@ -24,6 +29,7 @@
                 <th style="background-color: #B8DBFD;border: 1px solid #ccc">QuantityPerUnit</th>
                 <th style="background-color: #B8DBFD;border: 1px solid #ccc">UnitPrice</th>
                 <th style="background-color: #B8DBFD;border: 1px solid #ccc">Discontinued</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Update/Delete</th>
             </tr>
             @foreach (var product in Model.products)
             {
@@ -31,8 +37,18 @@
                     <td style="width:120px;border: 1px solid #ccc">@product.ProductId</td>
                     <td style="width:120px;border: 1px solid #ccc">@product.ProductName</td>
                     <td style="width:120px;border: 1px solid #ccc">@product.QuantityPerUnit</td>
-                    <td style="width:120px;border: 1px solid #ccc">@product.UnitPrice</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.UnitPrice$</td>
                     <td style="width:120px;border: 1px solid #ccc">@product.Discontinued</td>
+                    <td style="width:120px;border: 1px solid #ccc">
+                        <div class="text-end" role="group">
+                            <a asp-page="Edit" asp-route-id="@product.ProductId" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-page="Delete" asp-route-id="@product.ProductId" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             }
         </table>
@@ -53,21 +69,8 @@
                 url: "/ProductPages/Index?handler=Category",
                 data: { cateId: selectedValue },
                 success: function (data) {
-                    // Xóa nội dung bảng hiện có
-                    $('#Grid table tr').not(':first').remove();
-
-                    // Thêm dữ liệu sản phẩm mới vào bảng
-                    data.forEach(function (product) {
-                        var newRow =
-                            '<tr>' +
-                            '<td style="width:120px;border: 1px solid #ccc">' + product.productId + '</td>' +
-                            '<td style="width:120px;border: 1px solid #ccc">' + product.productName + '</td>' +
-                            '<td style="width:120px;border: 1px solid #ccc">' + product.quantityPerUnit + '</td>' +
-                            '<td style="width:120px;border: 1px solid #ccc">' + product.unitPrice + '</td>' +
-                            '<td style="width:120px;border: 1px solid #ccc">' + product.discontinued + '</td>' +
-                            '</tr>';
-                        $('#Grid table').append(newRow);
-                    });
+                    // Cập nhật phần tử container bằng dữ liệu mới
+                    $('#Grid').html(data);
                 },
                 error: function (error) {
                     console.error("Error:", error);
@@ -75,6 +78,5 @@
             });
         });
     </script>
-
 </body>
 </html>
