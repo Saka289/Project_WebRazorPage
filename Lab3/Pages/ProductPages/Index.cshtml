@@ -1,0 +1,90 @@
+﻿@page
+@model Lab3.Pages.ProductPages.IndexModel
+@{
+    var prevDisabled = !Model.ProductPaging.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.ProductPaging.HasNextPage ? "disabled" : "";
+}
+@{
+    int pagesToShow = 2; // Số lượng trang hiển thị
+    int startPage = Model.ProductPaging.PageIndex - pagesToShow;
+    int endPage = Model.ProductPaging.PageIndex + pagesToShow;
+
+    if (startPage < 1)
+    {
+        startPage = 1;
+        endPage = Math.Min(Model.ProductPaging.TotalPages, 2 * pagesToShow + 1);
+    }
+
+    if (endPage > Model.ProductPaging.TotalPages)
+    {
+        endPage = Model.ProductPaging.TotalPages;
+        startPage = Math.Max(1, Model.ProductPaging.TotalPages - 2 * pagesToShow);
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>List Product</h1>
+    <div class="text-end">
+        <a asp-page="Create" class="btn btn-primary">
+            <i class="bi bi-plus-square"></i> &nbsp;Create New Product
+        </a>
+    </div>
+    <hr />
+    <div id="Grid">
+        <table width="100%" cellpadding="5" cellspacing="0" style="border: 1px solid #ccc;font-size: 9pt;font-family:Arial">
+            <tr class="text-center text-white">
+                <th style="background-color: #1a1a1a;border: 1px solid #ccc">ProductId</th>
+                <th style="background-color: #1a1a1a;border: 1px solid #ccc">ProductName</th>
+                <th style="background-color: #1a1a1a;border: 1px solid #ccc">QuantityPerUnit</th>
+                <th style="background-color: #1a1a1a;border: 1px solid #ccc">UnitPrice</th>
+                <th style="background-color: #1a1a1a;border: 1px solid #ccc">Discontinued</th>
+                <th style="background-color: #1a1a1a;border: 1px solid #ccc">Update/Delete</th>
+                <th style="background-color: #1a1a1a;border: 1px solid #ccc">Add To Card</th>
+            </tr>
+            @foreach (var product in Model.products)
+            {
+                <tr>
+                    <td style="width:120px;border: 1px solid #ccc">@product.ProductId</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.ProductName</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.QuantityPerUnit</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.UnitPrice$</td>
+                    <td style="width:120px;border: 1px solid #ccc">@product.Discontinued</td>
+                    <td style="width:120px;border: 1px solid #ccc">
+                        <div class="text-center" role="group">
+                            <a asp-page="Edit" asp-route-id="@product.ProductId" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-page="Delete" asp-route-id="@product.ProductId" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td style="width:120px;border: 1px solid #ccc">
+                        <div class="text-center">
+                            <a asp-page="/ShoppingCart/Cart" asp-page-handler="Add" asp-route-id="@product.ProductId" class="btn btn-warning mx-2">
+                                <i class="bi bi-bag-plus-fill"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <br />
+    <br />
+    <a asp-page="./Index" asp-route-pageIndex="@(Model.ProductPaging.PageIndex - 1)" class="btn btn-primary @prevDisabled">Previous</a>
+    @for (int i = startPage; i <= endPage; i++)
+    {
+        <a asp-page="./Index" asp-route-pageIndex="@i" class="btn btn-primary @(i == Model.ProductPaging.PageIndex ? "activebtn" : "")">@i</a>
+    }
+    <a asp-page="./Index" asp-route-pageIndex="@(Model.ProductPaging.PageIndex + 1)" class="btn btn-primary @nextDisabled">Next</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</body>
+</html>

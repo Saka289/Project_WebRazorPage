@@ -1,0 +1,71 @@
+﻿@page
+@model Lab3.Pages.ShoppingCart.CheckOutModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pl-3">
+            <div class="col-9">
+                <h2 class="text-primary pl-3">CheckOut Product</h2>
+                <hr />
+                <div asp-validation-summary="All"></div>
+                <div class="mb-3">
+                    <label asp-for="Order.ShipName"></label>
+                    <input asp-for="Order.ShipName" class="form-control" />
+                    <span asp-validation-for="Order.ShipName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Order.ShipAddress"></label>
+                    <input asp-for="Order.ShipAddress" class="form-control" />
+                    <span asp-validation-for="Order.ShipAddress" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Order.ShipCity"></label>
+                    <input asp-for="Order.ShipCity" class="form-control" />
+                    <span asp-validation-for="Order.ShipCity" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Order.ShipCountry"></label>
+                    <input asp-for="Order.ShipCountry" class="form-control" />
+                    <span asp-validation-for="Order.ShipCountry" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Order.ShipVia">Shippers</label><br /><br />
+                    <select asp-for="Order.ShipVia" class="form-select" asp-items="Model.ShipVia">
+                        <option value="0">Select a number</option>
+                    </select>
+                    <span asp-validation-for="Order.ShipVia" class="text-danger"></span>
+                </div>
+                <Button type="submit" class="btn btn-primary" style="width:150px">Pay</Button>
+                <a asp-page="Cart" class="btn btn-primary">Back to Cart</a>
+            </div>
+            <div class="col-3">
+                <div class="mb-3" style="margin-top:50px;">
+                    <h5>
+                        Cart
+                        <span class="price" style="color:black">
+                            <i class="bi bi-cart-check-fill"></i>
+                            @if (Model.cartViewModel.CartItems.Count != 0)
+                            {
+                                <b>@Model.cartViewModel.CartItems.Count</b>
+                            }
+                        </span>
+                    </h5>
+                    <hr>
+                    <p style="color:black"><b>ProductName</b><span style="color:black" class="price">Price</span></p>
+                    @foreach (var item in Model.cartViewModel.CartItems)
+                    {
+                        <p style="font-size:12px">@item.ProductName<span class="price">@((item.Quantity * item.Price).ToString("C2"))</span></p>
+                    }
+                    <hr>
+                    <p style="font-size:15pt">Total:<span class="price" style="color:black"><b>@Model.cartViewModel.GrandTotal.ToString("C2")</b></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
