@@ -9,13 +9,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Lab3.Pages.ShoppingCart
 {
-    [BindProperties]
     public class CheckOutModel : PageModel
     {
         private readonly IShipperRepository _shipperRepository;
 
         private readonly ICheckOutRepository _checkOutRepository;
-
+        [BindProperty]
         public Order Order { get; set; }
 
         public CartViewModel cartViewModel { get; set; }
@@ -47,12 +46,15 @@ namespace Lab3.Pages.ShoppingCart
 
         public async Task<IActionResult> OnPost()
         {
-            List<CartItem> cartList = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
-            if (await _checkOutRepository.DoCheckOut(Order, cartList))
+            if (ModelState.IsValid)
             {
-                TempData["Success"] = "Order Success !!!";
-                HttpContext.Session.Remove("Cart");
-                return RedirectToPage("/ProductPages/Index");
+                List<CartItem> cartList = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+                if (await _checkOutRepository.DoCheckOut(Order, cartList))
+                {
+                    TempData["Success"] = "Order Success !!!";
+                    HttpContext.Session.Remove("Cart");
+                    return RedirectToPage("/ProductPages/Index");
+                }
             }
             TempData["Error"] = "Order Failed !!!";
             return RedirectToPage("CheckOut");

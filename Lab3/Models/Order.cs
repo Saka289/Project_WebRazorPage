@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lab3.Models
 {
@@ -16,13 +17,18 @@ namespace Lab3.Models
         public DateTime? OrderDate { get; set; }
         public DateTime? RequiredDate { get; set; }
         public DateTime? ShippedDate { get; set; }
+        [Required]
         public int? ShipVia { get; set; }
         public decimal? Freight { get; set; }
+        [Required]
         public string? ShipName { get; set; }
+        [Required]
         public string? ShipAddress { get; set; }
+        [Required]
         public string? ShipCity { get; set; }
         public string? ShipRegion { get; set; }
         public string? ShipPostalCode { get; set; }
+        [Required]
         public string? ShipCountry { get; set; }
 
         public virtual Customer? Customer { get; set; }
