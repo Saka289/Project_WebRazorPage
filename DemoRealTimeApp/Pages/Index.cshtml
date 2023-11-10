@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <div>
+        <div>UserName</div>
+         <input type="text" id="myUserName" />
+        <input type="button" id="setName" value="Set My Name" />
+    </div>
+    <div>Send To</div>
+    <div>
+        <input type="text" id="userInput" />
+    </div>
+    <div>
+        Message
+    </div>
+    <div>
+        <input type="text" id="messageInput" />
+    </div>
+    <div>
+        <input type="button" id="sendButton" value="Send Massage" />
+    </div>
+    <div>
+        <ul id="messageList">
+        </ul>
+    </div>
+</div>
+<script src="~/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/JavaScript.js"></script>
+
+

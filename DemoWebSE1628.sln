@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab2", "Lab2\Lab2.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab2_1", "Lab2_1\Lab2_1.csproj", "{F205F098-37E7-461D-BE3B-B5F5A73ED160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab3", "Lab3\Lab3.csproj", "{9F723D62-7E51-48A3-B0F6-4FC93E116266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab3", "Lab3\Lab3.csproj", "{9F723D62-7E51-48A3-B0F6-4FC93E116266}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRealTimeApp", "DemoRealTimeApp\DemoRealTimeApp.csproj", "{1BFE8615-4544-4B87-94C0-DA02F7EFAF20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAuthencation", "DemoAuthencation\DemoAuthencation.csproj", "{236D0606-59D1-4505-911C-35A0E4D52992}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{9F723D62-7E51-48A3-B0F6-4FC93E116266}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F723D62-7E51-48A3-B0F6-4FC93E116266}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F723D62-7E51-48A3-B0F6-4FC93E116266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BFE8615-4544-4B87-94C0-DA02F7EFAF20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BFE8615-4544-4B87-94C0-DA02F7EFAF20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BFE8615-4544-4B87-94C0-DA02F7EFAF20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BFE8615-4544-4B87-94C0-DA02F7EFAF20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236D0606-59D1-4505-911C-35A0E4D52992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236D0606-59D1-4505-911C-35A0E4D52992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236D0606-59D1-4505-911C-35A0E4D52992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236D0606-59D1-4505-911C-35A0E4D52992}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
