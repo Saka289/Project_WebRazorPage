@@ -9,7 +9,7 @@ namespace Lan2_1.Models
     public class Customer
     {
         [Required(ErrorMessage ="Customer name is required")]
-        [StringLength(20,MinimumLength =3,ErrorMessage ="The length of name is from 3 to 20 characters")]
+        [StringLength(6,MinimumLength =5,ErrorMessage ="The length of name is from 3 to 20 characters")]
         [DisplayName("Customer Name")]
         [ModelBinder(BinderType = typeof(CheckNameBinding))]
         public string CustomerName { get; set; }

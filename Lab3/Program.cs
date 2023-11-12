@@ -4,6 +4,7 @@ using Lab3.Models;
 using Microsoft.EntityFrameworkCore;
 using Lab3.Repository.ShiperRepository;
 using Lab3.Repository.CheckOutRepository;
+using Lab3.Repository.OrderRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShipperRepository, ShipperRepository>();
 builder.Services.AddScoped<ICheckOutRepository, CheckOutRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 

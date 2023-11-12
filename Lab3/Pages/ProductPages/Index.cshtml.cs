@@ -10,13 +10,14 @@ namespace Lab3.Pages.ProductPages
 
         private readonly IProductRepository _productRepository;
 
-        public List<Product> products { get; set; } = new List<Product>();
+        public List<Product> products { get; set; }
 
         public PaginatedList<Product> ProductPaging { get; set; }
 
-        public IndexModel(NorthwindContext context, IProductRepository productRepository)
+        public IndexModel(IProductRepository productRepository)
         {
             _productRepository = productRepository;
+            products = new List<Product>();
         }
 
         public void OnGet(int? pageIndex)
